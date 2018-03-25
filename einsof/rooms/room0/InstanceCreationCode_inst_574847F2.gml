@@ -13,14 +13,19 @@ script_content=@"
 你跟我搭话了\v[talk_time]次。
 @if $talk_time=1
     我们第一次说话呢，你好!
+@elsif $talk_time<=3
+    说话不超过三次呢
+    @if $talk_time!=2
+        第三次说
+    @endif
 @else
-    不止一次说话了呢。
-    @if $talk_time=2
-        我们第二次说
-    @elsif $talk_time=3
-        第三次啦
+    三次以上说话
+    @if $talk_time=4
+        我们第四
+    @elsif $talk_time=5
+        第五次啦
     @else
-        再次见面了
+        再次见面了，五次以上了
     @endif
     真的不止一次说话了。
 @endif

@@ -16,7 +16,7 @@ for (var i=0; i<array_length_1d(opes); i++){
 
 if (ope_i>0){
     var lexp = string_copy(cond, 1, ope_i-1);
-    var rexp = string_copy(cond, ope_i+1, string_length(cond)-ope_i);
+    var rexp = string_copy(cond, ope_i+string_length(ope), string_length(cond)-ope_i-string_length(ope)+1);
     
     var lval = 0;
     var rval = 0;
