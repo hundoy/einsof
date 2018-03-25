@@ -1,0 +1,5 @@
+Converting GML script: ${project_dir}\scripts\string_split\string_split.gml
+Converted description /// @description string_split(substr, str, ignoreEmptyStrings)/// @function string_split
+/// @param substr
+/// @param  str
+/// @param  ignoreEmptyStrings
