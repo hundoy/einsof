@@ -5,7 +5,7 @@ var script_arr = ds_list_create();
 
 var arr = string_split("\r\n", script_content, true);
 for (var i=0; i<array_length_1d(arr); i+=1){
-    var line = arr[i];
+    var line = string_trim(arr[i]);
     show_debug_message(string(i)+" - "+line);
     if (string_char_at(line, 1)=="["){
         // command

@@ -1,8 +1,0 @@
-Converting GML script: ${project_dir}\scripts\draw_text_outline\draw_text_outline.gml
-Converted description /// @description draw_text_outline(x,y,str,outwidth,outcol,outfidelity)/// @function draw_text_outline
-/// @param x
-/// @param y
-/// @param str
-/// @param outwidth
-/// @param outcol
-/// @param outfidelity
