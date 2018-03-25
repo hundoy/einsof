@@ -12,13 +12,17 @@ script_content=@"
 [dh 少女]
 你跟我搭话了\v[talk_time]次。
 @if $talk_time=1
-    我们第一次说话呢，你好！
+    我们第一次说话呢，你好!
 @else
-    @if $talk_time<3
-        再次见面了
+    不止一次说话了呢。
+    @if $talk_time=2
+        我们第二次说
+    @elsif $talk_time=3
+        第三次啦
     @else
-        事不过三，别再来烦我了！
+        再次见面了
     @endif
+    真的不止一次说话了。
 @endif
 但有两个数字\v[no_change]和\v[another]不变
 [xlh]

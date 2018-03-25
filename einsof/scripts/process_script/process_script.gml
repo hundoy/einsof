@@ -2,7 +2,7 @@
 var param_map = argument0;
 
 var type = param_map[? "type"];
-var rs = ds_map_create();
+var scriptrs = ds_map_create();
 var go_next = true;
 
 switch(type){
@@ -40,6 +40,29 @@ switch(type){
 
         script_val_map[? k] = rs;
         break;
+    case "if":
+    case "elsif":
+        var cond = param_map[? "cond"];
+        var rs = check_cond(cond); // return true/false
+        if (type=="if"){
+            // when if, init cond_has_found. cond_skip based on rs directly.
+            ds_list_add(cond_has_found_list, rs); 
+            ds_map_add(scriptrs, "cond_skip", !rs);
+        } else {
+            // when elsif, cond_skip based on cond_has_found and rs.
+            var cond_has_found = cond_has_found_list[| ds_list_size(cond_has_found_list)-1]; 
+            ds_map_add(scriptrs, "cond_skip", cond_has_found || !rs);
+            if (rs) cond_has_found_list[| ds_list_size(cond_has_found_list)-1] = true;
+        }
+        break;
+    case "else":
+        var cond_has_found = cond_has_found_list[| ds_list_size(cond_has_found_list)-1];
+        ds_map_add(scriptrs, "cond_skip", cond_has_found);
+        break;
+    case "endif":
+        ds_list_delete(cond_has_found_list, ds_list_size(cond_has_found_list)-1);
+        ds_map_add(scriptrs, "cond_skip", false);
+        break;
     default:
         // text
         var text = param_map[? "text"];
@@ -66,6 +89,6 @@ switch(type){
         break;
 }
 
-ds_map_add(rs, "go_next", go_next);
+ds_map_add(scriptrs, "go_next", go_next);
 
-return rs;
+return scriptrs;

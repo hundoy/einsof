@@ -37,11 +37,26 @@ if is_load_end && keyboard_check_pressed(vk_space){
             // process script
             var go_next = true;
             do{
+                // must do
                 script_i+=1;
+                is_script_end = (script_i >= ds_list_size(script_list)-1);
                 var params = script_list[| script_i];
+                
+                // skip cond-false block
+                var cmdtype = params[? "type"];
+                if (is_cond_skip && cmdtype=="if"){
+                    skiping_cond_level+=1;
+                }
+                if (is_cond_skip && skiping_cond_level>0){
+                    if (cmdtype=="endif") skiping_cond_level-=1;
+                    continue;
+                }
+                if (is_cond_skip && cmdtype!="elsif" && cmdtype!="else" && cmdtype!="endif") continue;
+                
                 var rs = process_script(params);
                 go_next = rs[? "go_next"];
-                is_script_end = (script_i >= ds_list_size(script_list)-1);
+                
+                if (ds_map_exists(rs, "cond_skip")) is_cond_skip = rs[? "cond_skip"];
             } until(!go_next || is_script_end)
         }
         
