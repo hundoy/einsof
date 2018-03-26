@@ -21,7 +21,9 @@ if is_load_end && keyboard_check_pressed(vk_space){
             // init script
             ins_player.is_movable = false;
             script_content = interact_ins.script_content;
-            script_list = load_script(script_content);
+            var script_load_rs = load_script(script_content);
+            script_list = script_load_rs[? "script_list"];
+            script_tag_map = script_load_rs[? "tag_map"];
             script_i = -1;
             is_process_script = true;
         }
@@ -38,7 +40,12 @@ if is_load_end && keyboard_check_pressed(vk_space){
             var go_next = true;
             do{
                 // must do
-                script_i+=1;
+                if (go_script_i>=0){
+                    script_i = go_script_i;
+                    go_script_i = -100;
+                } else {
+                    script_i+=1;
+                }
                 is_script_end = (script_i >= ds_list_size(script_list)-1);
                 var params = script_list[| script_i];
                 
@@ -53,10 +60,16 @@ if is_load_end && keyboard_check_pressed(vk_space){
                 }
                 if (is_cond_skip && cmdtype!="elsif" && cmdtype!="else" && cmdtype!="endif") continue;
                 
+                // process script
                 var rs = process_script(params);
-                go_next = rs[? "go_next"];
                 
+                // process result
+                go_next = rs[? "go_next"];
                 if (ds_map_exists(rs, "cond_skip")) is_cond_skip = rs[? "cond_skip"];
+                if (ds_map_exists(rs, "go_script_i")){
+                    go_script_i = rs[? "go_script_i"];
+                    is_script_end = false;
+                }
             } until(!go_next || is_script_end)
         }
         

@@ -5,6 +5,8 @@ script_content=@"
 [lh boy]
 [dh 男孩]
 你好，小姑娘。我叫\s[boy_name]呀~
+[lh wolf cond=$talk_time=1]
+hi
 [val no_change=5]
 [val talk_time=$+1]
 [val another=$no_change+10]

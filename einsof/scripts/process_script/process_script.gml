@@ -5,6 +5,16 @@ var type = param_map[? "type"];
 var scriptrs = ds_map_create();
 var go_next = true;
 
+// check cond param in common command. skip cond-false command. 
+if(ds_map_exists(param_map, "cond") && type!="if" && type!="elsif"){
+    var cmdcond = ds_map_find_value(param_map, "cond");
+    var cmdcond_rs = check_cond(cmdcond);
+    if (!cmdcond_rs){
+        ds_map_add(scriptrs, "go_next", go_next);
+        return scriptrs;
+    }
+}
+
 switch(type){
     case "lh":
         var n = param_map[? "name"];
@@ -62,6 +72,18 @@ switch(type){
     case "endif":
         ds_list_delete(cond_has_found_list, ds_list_size(cond_has_found_list)-1);
         ds_map_add(scriptrs, "cond_skip", false);
+        break;
+    case "tag":
+        // do nothing
+        break;
+    case "jump":
+        var jump_tag = param_map[? "name"];
+        if (ds_map_exists(script_tag_map, jump_tag)){
+            var jump_i = script_tag_map[? jump_tag];
+            ds_map_add(scriptrs, "go_script_i", jump_i);
+        } else{
+            show_debug_message("[SCRIPT ERROR] There is no tag "+jump_tag);
+        }
         break;
     default:
         // text

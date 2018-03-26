@@ -1,16 +1,20 @@
 script_content=@"
+*start
+[val j=$+1]
 [lh boy]
 [dh 男孩]
-说到这个，不得不让一切归为零了。
-本着两行字一换行的原则，这是第二行。
-第二页第一行
+标签测试耶\v[j]
+[val i=0]
+*head
 [lh wolf]
 [dh 狼忍者]
-然后第二页，只有这一行。
+循环\v[i]次~
+[val i=$+1]
+[jump head cond=$i<5]
 [lh boy]
 [dh 男孩]
-接下来，
-这是最后一句话了。拜拜。
+说完了，谢谢
 [xlh]
 [xdh]
+[jump start cond=$j=1]
 ";

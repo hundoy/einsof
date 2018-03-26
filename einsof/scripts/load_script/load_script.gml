@@ -1,7 +1,9 @@
 ///@param script_content
 var sc = argument0;
 
+var rs_data = ds_map_create();
 var script_arr = ds_list_create();
+var tag_map = ds_map_create();
 
 var arr = string_split("\r\n", script_content, true);
 for (var i=0; i<array_length_1d(arr); i+=1){
@@ -22,7 +24,7 @@ for (var i=0; i<array_length_1d(arr); i+=1){
             var type = larr[0]
             ds_map_add(kvcmd, "type", type);
             if array_length_1d(larr)>1{
-                // default key is 'n'
+                // default key is 'name'
                 for (var j=1; j<array_length_1d(larr); j+=1){
                     var ei = string_pos("=", larr[j]);
                     var k = "name";
@@ -52,6 +54,13 @@ for (var i=0; i<array_length_1d(arr); i+=1){
             // do nothing, skip comment.
             break;
         case "tag":
+            var kvcmd = ds_map_create();
+            ds_map_add(kvcmd, "type", "tag");
+            var tag_name = string_copy(line, 2, string_length(line)-1);
+            ds_map_add(kvcmd, "name", tag_name);
+            ds_list_add(script_arr, kvcmd);
+            
+            ds_map_add(tag_map, tag_name, ds_list_size(script_arr)-1);
             break;
         case "text":
             // text
@@ -63,4 +72,7 @@ for (var i=0; i<array_length_1d(arr); i+=1){
     }
 }
 
-return script_arr;
+ds_map_add(rs_data, "script_list", script_arr);
+ds_map_add(rs_data, "tag_map", tag_map);
+
+return rs_data;

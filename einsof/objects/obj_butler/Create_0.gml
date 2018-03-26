@@ -15,10 +15,12 @@ ins_lh = noone;
 is_process_script = false;
 script_content = "";
 script_list = ds_list_create();
+script_tag_map = ds_map_create();
 script_i = -100;
 cond_has_found_list = ds_list_create(); // whether has found the right condition
 is_cond_skip = false;
 skiping_cond_level = 0;
+go_script_i = -100;
 
 script_val_map = ds_map_create();
 script_str_map = ds_map_create();
