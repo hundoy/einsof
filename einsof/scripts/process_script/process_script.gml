@@ -85,6 +85,40 @@ switch(type){
             show_debug_message("[SCRIPT ERROR] There is no tag "+jump_tag);
         }
         break;
+    case "sel":
+        // all the sel commands are processed here.
+        // type: clear/add/rm/show
+        var sel_type = param_map[? "name"];
+        switch(sel_type){
+            case "clear":
+                ds_list_clear(sel_list);
+                break;
+            case "add":
+                var sel_tag = param_map[? "t"];
+                var sel_text = param_map[? "x"];
+                ds_list_add(sel_list, [sel_tag, sel_text]);
+                break;
+            case "rm":
+                // two ways to remove a sel. By tag_name or by index.
+                if (ds_map_exists(param_map, "t")){
+                    var sel_tag = param_map[? "t"];
+                    for (var sel_i=0;sel_i<ds_list_size(sel_list);sel_i+=1){
+                        var tuple = sel_list[| sel_i];
+                        if (sel_tag==tuple[0]) ds_list_delete(sel_list, sel_i);
+                    }
+                }
+                if (ds_map_exists(param_map, "i")){
+                    var sel_i = param_map[? "i"];
+                    if (sel_i<=ds_list_size(sel_list)-1) ds_list_delete(sel_list, sel_i);
+                }
+                break;
+            case "show":
+                ins_sel.sel_list = sel_list;
+                ins_sel.is_sel = true;
+                go_next = false;
+                break;
+        }
+        break;
     default:
         // text
         var text = param_map[? "text"];

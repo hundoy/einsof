@@ -159,6 +159,14 @@
             }
         },
         {
+            "Key": "51eb0908-4ff6-4739-8da2-784c574efdf9",
+            "Value": {
+                "id": "a9a627d9-09f8-4796-977a-cabd30e41dd1",
+                "resourcePath": "sprites\\sp_selbg\\sp_selbg.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "53ef358f-0739-459f-bb56-d1d8d8a20880",
             "Value": {
                 "id": "94e5e051-5d89-40e5-87fb-3540579c327e",
@@ -439,6 +447,14 @@
             }
         },
         {
+            "Key": "e6b086fb-fad5-4570-b065-b21d8e59e0c0",
+            "Value": {
+                "id": "f08eae3b-17a9-42b6-80a9-910cb55f9b91",
+                "resourcePath": "sprites\\sp_sel\\sp_sel.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "e7a61369-6b98-48af-93f4-053925b81ffc",
             "Value": {
                 "id": "ae8c828e-a5de-4f22-95f1-657d16ea9b2a",
@@ -460,6 +476,14 @@
                 "id": "7f426728-c3c6-4ece-a902-adc3ecc8c25d",
                 "resourcePath": "scripts\\tile_collide_at_points\\tile_collide_at_points.yy",
                 "resourceType": "GMScript"
+            }
+        },
+        {
+            "Key": "ed5b3293-faad-4a5a-93b9-c9070cbdaddb",
+            "Value": {
+                "id": "f0a82583-cdf3-4869-a843-881a63384baf",
+                "resourcePath": "objects\\obj_sel\\obj_sel.yy",
+                "resourceType": "GMObject"
             }
         },
         {

@@ -10,11 +10,40 @@ if (ins_msgbox == noone){
 if (ins_lh == noone){
     ins_lh = instance_find(obj_lh, 0);
 }
+if (ins_sel == noone){
+    ins_sel = instance_find(obj_sel, 0);
+}
 
-var is_load_end = ins_player!=noone && ins_msgbox!=noone && ins_lh!=noone;
+var is_load_end = ins_player!=noone && ins_msgbox!=noone && ins_lh!=noone && ins_sel!=noone;
+
+// press keyboard direction key
+key_y = keyboard_check_pressed(vk_down) - keyboard_check_pressed(vk_up);
+if (is_load_end && key_y!=0){
+    if (ins_sel.is_sel){
+        var sel_cnt = ds_list_size(sel_list);
+        var sel_i = ins_sel.sel_i + key_y;
+        if (sel_i>sel_cnt-1) sel_i = 0;
+        if (sel_i<0) sel_i = sel_cnt-1;
+        ins_sel.sel_i = sel_i;
+    }
+}
 
 // press space and trigger interact
-if is_load_end && keyboard_check_pressed(vk_space){
+if (is_load_end && keyboard_check_pressed(vk_space)){
+    if (ins_sel.is_sel){
+        if (ins_sel.sel_i<0) return;
+        
+        // click a sel option
+        var sel_data = sel_list[| ins_sel.sel_i];
+        var jump_tag = sel_data[0];
+        ins_sel.is_sel = false;
+        ins_sel.sel_i = -1;
+
+        if (ds_map_exists(script_tag_map, jump_tag)){
+            go_script_i = script_tag_map[? jump_tag];
+        }
+    }
+    
     if (!is_process_script){
         // when map control
         if (interact_ins!=noone){

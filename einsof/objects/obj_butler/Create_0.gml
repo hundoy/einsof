@@ -4,12 +4,16 @@
 // global constant 
 global.sw = camera_get_view_width(view_camera[0]);
 global.sh = camera_get_view_height(view_camera[0]);
+// colors
+global.col_name = $8ffffb;
+global.col_text = $fcffec;
 
 // instance
 interact_ins = noone;
 ins_player = noone;
 ins_msgbox = noone;
 ins_lh = noone;
+ins_sel = noone;
 
 // control
 is_process_script = false;
@@ -21,6 +25,7 @@ cond_has_found_list = ds_list_create(); // whether has found the right condition
 is_cond_skip = false;
 skiping_cond_level = 0;
 go_script_i = -100;
+sel_list = ds_list_create();
 
 script_val_map = ds_map_create();
 script_str_map = ds_map_create();

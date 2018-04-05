@@ -20,14 +20,16 @@ draw_sprite_ext(sp_msgbg, 0, msgbox_x, msgbox_y, 1, 1, 0, c_white, 0.9);
 //draw_sprite(sp_circle2, 0, msgbox_x+name_margin_x, msgbox_y+name_margin_y);
 
 // draw text
+draw_set_halign(fa_left);
+draw_set_valign(fa_top);
 draw_set_font(font_sy18);
 //draw_set_font(font_sans);
-draw_set_color(col_name);
+draw_set_color(global.col_name);
 draw_text(msgbox_x+name_margin_x, msgbox_y+name_margin_y, msg_name);
 //draw_text(msgbox_x, msgbox_y, "刘大拿");
 
 draw_set_font(font_sy);
-draw_set_color(col_text);
+draw_set_color(global.col_text);
 //draw_text_ext(msgbox_x+text_margin_x, msgbox_y+text_margin_y, text, stringHeight, boxWidth);
 //draw_text_outline(msgbox_x+text_margin_x, msgbox_y+text_margin_y, text, 2, c_red, 8);
 //draw_text_outline(msgbox_x+text_margin_x, msgbox_y+text_margin_y, "This is English, and is's look better", 2, c_red, 8);
@@ -39,14 +41,3 @@ for(var dto_i=45; dto_i<405; dto_i+=360/8)
 }
 
 draw_text_ext_transformed_colour(msgbox_x+text_margin_x, msgbox_y+text_margin_y, text, stringHeight, boxWidth, 1.0, 1.0, 0, c_white, c_white, c_white, c_white, 1);
-
-// click to next msg
-//if mouse_check_button_pressed(mb_left){
-//	//if (msg_i<ds_list_size(msg_data)-1){
-//	//	msg_i++;
-//	//} else {
-//	//	msg_i = 0;
-//	//}
-//    say_text = "";
-//    is_show = false;
-//}
