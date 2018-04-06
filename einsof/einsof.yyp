@@ -279,6 +279,14 @@
             }
         },
         {
+            "Key": "943ec9c6-06c2-4a9c-9ee0-51125585b1db",
+            "Value": {
+                "id": "3a069b97-2292-4ef4-9ae7-3e206935da0d",
+                "resourcePath": "objects\\obj_last_mouse\\obj_last_mouse.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "95795d96-200f-4408-8635-9f5113f1c012",
             "Value": {
                 "id": "52143264-8f6c-4cd6-beb6-d9cc7a612c60",

@@ -29,7 +29,7 @@ if (is_load_end && key_y!=0){
 }
 
 // press space and trigger interact
-if (is_load_end && keyboard_check_pressed(vk_space)){
+if (is_load_end && (keyboard_check_pressed(vk_space) || mouse_check_button_pressed(mb_left))){
     if (ins_sel.is_sel){
         if (ins_sel.sel_i<0) return;
         
