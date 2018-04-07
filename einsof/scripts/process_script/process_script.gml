@@ -1,5 +1,7 @@
 ///@param script_line_map
+///@param next_script_line_map. When there is no next script, this is noone
 var param_map = argument0;
+var next_param_map = argument1;
 
 var type = param_map[? "type"];
 var scriptrs = ds_map_create();
@@ -122,26 +124,9 @@ switch(type){
     default:
         // text
         var text = param_map[? "text"];
-        // replace val and str
-        while(string_pos("\\s", text)){
-            var si = string_pos("\\s",text);
-            var ei = string_pos("]",text);
-            var val_k = string_copy(text, si+3, ei-si-3);
-            var val_v = script_str_map[? val_k];
-            var ori_str = string_copy(text, si, ei-si+1);
-            text = string_replace_all(text, ori_str, val_v);
-        }
-        while(string_pos("\\v", text)){
-            var si = string_pos("\\v",text);
-            var ei = string_pos("]",text);
-            var val_k = string_copy(text, si+3, ei-si-3);
-            var val_v = script_val_map[? val_k];
-            var ori_str = string_copy(text, si, ei-si+1);
-            text = string_replace_all(text, ori_str, string(val_v));
-        }
-        
-        ins_msgbox.say_text = text;
-        go_next = false;
+        process_text(text);
+        // read script until a non-text script
+        go_next = (next_param_map!=noone && next_param_map[? "type"]=="text");
         break;
 }
 

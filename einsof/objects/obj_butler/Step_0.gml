@@ -16,6 +16,44 @@ if (ins_sel == noone){
 
 var is_load_end = ins_player!=noone && ins_msgbox!=noone && ins_lh!=noone && ins_sel!=noone;
 
+// process text
+if (is_load_end && is_intext){
+    // limit process
+    if (!is_pageend && txt_step_i>=txt_step_cnt){
+        txt_i+=1;
+        // reach a line
+        if (txt_i>string_length(txt_line_list[| txt_li])){
+            txt_i = 0;
+            txt_li += 1;
+            
+            // reach a page. reach max line or there is no line
+            if (txt_li-txt_start_li>=txt_max_line || txt_li>=ds_list_size(txt_line_list)){
+                txt_li -= 1;
+                is_pageend = true;
+            }
+        }
+        
+        txt_step_i = 0;
+    }
+    
+    // get text
+    var text = "";
+    if (is_pageend){
+        for (var i=txt_start_li; i<txt_li+1; i+=1){
+            text += txt_line_list[| i]+"\n";
+        }
+    } else {
+        for (var i=txt_start_li; i<txt_li; i+=1){
+            text += txt_line_list[| i]+"\n";
+        }
+        text += string_copy(txt_line_list[| txt_li], 0, txt_i+1);
+    }
+    ins_msgbox.say_text = text;
+    
+    // others
+    if (!is_pageend) txt_step_i+=1;
+}
+
 // press keyboard direction key
 key_y = keyboard_check_pressed(vk_down) - keyboard_check_pressed(vk_up);
 if (is_load_end && key_y!=0){
@@ -60,6 +98,28 @@ if (is_load_end && (keyboard_check_pressed(vk_space) || mouse_check_button_press
     
     // process script
     if (is_process_script){
+        // text wait click process
+        if (is_intext){
+            if (is_pageend){
+                txt_li += 1;
+                
+                if (txt_li>=ds_list_size(txt_line_list)){
+                    is_intext = false;
+                    is_pageend = false;
+                    ds_list_clear(txt_line_list);
+                    txt_li = -1;
+                    txt_i = -1;
+                    txt_step_i = -1;
+                } else {
+                    txt_start_li = txt_li;
+                    is_pageend = false;
+                    return;
+                }           
+            } else {
+                return;
+            }
+        }
+        
         var is_script_end = false;
         if (script_i >= ds_list_size(script_list)-1){
             // script end
@@ -69,6 +129,7 @@ if (is_load_end && (keyboard_check_pressed(vk_space) || mouse_check_button_press
             var go_next = true;
             do{
                 // must do
+                // script_i change firstly. If there is go target, change to target. or +1
                 if (go_script_i>=0){
                     script_i = go_script_i;
                     go_script_i = -100;
@@ -90,7 +151,13 @@ if (is_load_end && (keyboard_check_pressed(vk_space) || mouse_check_button_press
                 if (is_cond_skip && cmdtype!="elsif" && cmdtype!="else" && cmdtype!="endif") continue;
                 
                 // process script
-                var rs = process_script(params);
+                var rs = noone;
+                if (script_i<ds_list_size(script_list)-1){
+                    var next_params = script_list[| script_i+1];
+                    rs = process_script(params, next_params);
+                } else {
+                    rs = process_script(params, noone);
+                }
                 
                 // process result
                 go_next = rs[? "go_next"];

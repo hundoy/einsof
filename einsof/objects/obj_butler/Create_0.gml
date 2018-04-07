@@ -27,5 +27,16 @@ skiping_cond_level = 0;
 go_script_i = -100;
 sel_list = ds_list_create();
 
+// text control
+txt_max_line = 2;
+txt_line_list = ds_list_create();
+txt_start_li = -1;
+txt_li = -1;
+txt_i = -1;
+txt_step_cnt = 4; // the step count for one word
+txt_step_i = -1; // add 1 per step. When it reach txt_step_cnt, print next word.
+is_intext = false;
+is_pageend = false;
+
 script_val_map = ds_map_create();
 script_str_map = ds_map_create();
