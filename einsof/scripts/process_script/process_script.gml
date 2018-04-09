@@ -32,6 +32,7 @@ switch(type){
         break;
     case "xdh":
         ins_msgbox.say_name = "";
+        ins_msgbox.say_text = "";
         ins_msgbox.is_show = false;
         break;
     case "str":

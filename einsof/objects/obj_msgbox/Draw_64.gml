@@ -41,3 +41,13 @@ for(var dto_i=45; dto_i<405; dto_i+=360/8)
 }
 
 draw_text_ext_transformed_colour(msgbox_x+text_margin_x, msgbox_y+text_margin_y, text, stringHeight, boxWidth, 1.0, 1.0, 0, c_white, c_white, c_white, c_white, 1);
+
+// wait click icon
+if (is_waitclick){
+    waitclick_icon_x = global.sw - 32;
+    waitclick_icon_y = global.sh - 25;
+    draw_sprite(sp_icon_click, waitclick_i div 30 % 2, waitclick_icon_x, waitclick_icon_y);
+    
+    waitclick_i+=1;
+    waitclick_i%=120;
+}

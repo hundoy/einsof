@@ -30,10 +30,19 @@ if (is_load_end && is_intext){
             if (txt_li-txt_start_li>=txt_max_line || txt_li>=ds_list_size(txt_line_list)){
                 txt_li -= 1;
                 is_pageend = true;
+                ins_msgbox.is_waitclick = true;
             }
         }
         
         txt_step_i = 0;
+    }
+    
+    if (is_skippage){
+        txt_li = min(txt_start_li + txt_max_line - 1, ds_list_size(txt_line_list) - 1);
+        txt_i = string_length(txt_line_list[| txt_li]);
+        is_pageend = true;
+        ins_msgbox.is_waitclick = true;
+        is_skippage = false;
     }
     
     // get text
@@ -106,16 +115,20 @@ if (is_load_end && (keyboard_check_pressed(vk_space) || mouse_check_button_press
                 if (txt_li>=ds_list_size(txt_line_list)){
                     is_intext = false;
                     is_pageend = false;
+                    ins_msgbox.is_waitclick = false;
                     ds_list_clear(txt_line_list);
                     txt_li = -1;
                     txt_i = -1;
                     txt_step_i = -1;
                 } else {
                     txt_start_li = txt_li;
+                    txt_i = 0;
                     is_pageend = false;
+                    ins_msgbox.is_waitclick = false;
                     return;
                 }           
             } else {
+                is_skippage = true;
                 return;
             }
         }

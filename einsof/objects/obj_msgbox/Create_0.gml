@@ -19,21 +19,21 @@ text_margin_x = 50;
 text_margin_y = 85;
 name_margin_x = 40;
 name_margin_y = 15;
-boxWidth = sprite_get_width(sp_msgbg)-text_margin_x;
+boxWidth = sprite_get_width(sp_msgbg)-text_margin_x*2;
 //boxHeight = 
 //boxWidth = 700;
-stringHeight = 36;
+stringHeight = 48;
 msgbox_x = (camera_get_view_width(view_camera[0]) - sprite_get_width(sp_msgbg))/2;
 msgbox_y = camera_get_view_height(view_camera[0]) - sprite_get_height(sp_msgbg);
 //show_debug_message(sprite_get_height(sp_msgbg));
+
 
 // control
 is_show = false;
 say_text = "default";
 say_name = "Tom";
-
-
-
+is_waitclick = false;
+waitclick_i = 0;
 //show_debug_message(string(string_width("这个就是思源黑体吧？门字能看出来，")));
 //show_debug_message(string(string_width("这是第二行的文字，跟第一行相映成趣。看起来如果能不错，那就好了。")));
 //show_debug_message(string(string_width("三个字")));
