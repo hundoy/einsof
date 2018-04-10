@@ -6,7 +6,6 @@ walk_dir = 4;
 is_moving = false;
 walk_speed = 4;
 
-
 wall_tid = layer_tilemap_get_id(layer_get_id("til_wall"));
 wall_size = tilemap_get_tile_width(wall_tid);
 

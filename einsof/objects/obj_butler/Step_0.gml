@@ -7,14 +7,11 @@ if (ins_player == noone){
 if (ins_msgbox == noone){
     ins_msgbox = instance_find(obj_msgbox, 0);
 }
-if (ins_lh == noone){
-    ins_lh = instance_find(obj_lh, 0);
-}
 if (ins_sel == noone){
     ins_sel = instance_find(obj_sel, 0);
 }
 
-var is_load_end = ins_player!=noone && ins_msgbox!=noone && ins_lh!=noone && ins_sel!=noone;
+var is_load_end = ins_player!=noone && ins_msgbox!=noone && ins_sel!=noone;
 
 // press skip button
 var is_press_skip = keyboard_check(vk_control);

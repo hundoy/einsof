@@ -20,7 +20,7 @@ if(ds_map_exists(param_map, "cond") && type!="if" && type!="elsif"){
 switch(type){
     case "lh":
         var n = param_map[? "name"];
-        ins_lh.say_lh_name = n;
+        lh_name = n;
         break;
     case "dh":
         var n = param_map[? "name"];
@@ -28,13 +28,29 @@ switch(type){
         ins_msgbox.is_show = true;
         break;
     case "xlh":
-        ins_lh.say_lh_name = "";
+        lh_name = "";
         break;
     case "xdh":
         ins_msgbox.say_name = "";
         ins_msgbox.say_text = "";
         ins_msgbox.is_show = false;
         break;
+    case "bg":
+        if (ds_map_exists(param_map, "t")){
+            // actually, this is frame, not time.
+            var trans_time = real(param_map[? "t"]);
+            trans_period = 1;
+            trans_tar = trans_time;
+        }
+    
+        if (ds_map_exists(param_map, "name")){
+            is_show_bg = true;
+            bg_name = param_map[? "name"];
+        } else {
+            bg_name = "";
+            is_show_bg = false;
+        }
+        break;    
     case "str":
         var k = ds_map_find_first(param_map);
         if (k=="type") k = ds_map_find_next(param_map, k);
