@@ -16,6 +16,9 @@ if (ins_sel == noone){
 
 var is_load_end = ins_player!=noone && ins_msgbox!=noone && ins_lh!=noone && ins_sel!=noone;
 
+// press skip button
+var is_press_skip = keyboard_check(vk_control);
+
 // process text
 if (is_load_end && is_intext){
     // limit process
@@ -37,7 +40,7 @@ if (is_load_end && is_intext){
         txt_step_i = 0;
     }
     
-    if (is_skippage){
+    if (is_skippage || is_press_skip){
         txt_li = min(txt_start_li + txt_max_line - 1, ds_list_size(txt_line_list) - 1);
         txt_i = string_length(txt_line_list[| txt_li]);
         is_pageend = true;
@@ -63,6 +66,8 @@ if (is_load_end && is_intext){
     if (!is_pageend) txt_step_i+=1;
 }
 
+
+
 // press keyboard direction key
 key_y = keyboard_check_pressed(vk_down) - keyboard_check_pressed(vk_up);
 if (is_load_end && key_y!=0){
@@ -76,9 +81,11 @@ if (is_load_end && key_y!=0){
 }
 
 // press space and trigger interact
-if (is_load_end && (keyboard_check_pressed(vk_space) || mouse_check_button_pressed(mb_left))){
+var is_press_enter = keyboard_check_pressed(vk_space) || mouse_check_button_pressed(mb_left);
+if (is_load_end && (is_press_enter || is_press_skip)){
+    // HANG when in sel
     if (ins_sel.is_sel){
-        if (ins_sel.sel_i<0) return;
+        if (ins_sel.sel_i<0 || !is_press_enter) return;
         
         // click a sel option
         var sel_data = sel_list[| ins_sel.sel_i];
@@ -91,7 +98,8 @@ if (is_load_end && (keyboard_check_pressed(vk_space) || mouse_check_button_press
         }
     }
     
-    if (!is_process_script){
+    // skip if not press enter
+    if (!is_process_script && is_press_enter){
         // when map control
         if (interact_ins!=noone){
             // init script
