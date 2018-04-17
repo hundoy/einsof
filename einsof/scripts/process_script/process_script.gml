@@ -19,8 +19,33 @@ if(ds_map_exists(param_map, "cond") && type!="if" && type!="elsif"){
 
 switch(type){
     case "lh":
+        if (ds_map_exists(param_map, "t")){
+            // actually, this is frame, not time.
+            var trans_time = real(param_map[? "t"]);
+            trans_period = 1;
+            trans_tar = trans_time;
+        }
+        
         var n = param_map[? "name"];
-        lh_name = n;
+        var pos = param_map[? "p"];
+        var g = param_map[? "g"];
+        var c = param_map[? "c"];
+        var f = param_map[? "f"];
+        var lhdata = ds_map_create();
+        lhdata[? "pos"] = pos;
+        lhdata[? "g"] = g;
+        lhdata[? "c"] = c;
+        lhdata[? "f"] = f;
+        
+        if (!ds_map_exists(cur_lh_map, n)){
+            var newlist = ds_list_create();
+            ds_map_add_list(cur_lh_map, n, newlist);
+        }
+        var lhdata_list = cur_lh_map[? n]
+        
+        lhdata_list[| 0] = lhdata;
+        ds_list_mark_as_map(lhdata_list, 0);
+        ds_map_add_list(cur_lh_map, n, lhdata_list);
         break;
     case "dh":
         var n = param_map[? "name"];
@@ -28,7 +53,14 @@ switch(type){
         ins_msgbox.is_show = true;
         break;
     case "xlh":
-        lh_name = "";
+        if (!ds_map_exists(param_map, "n")){
+            // destroy all lh
+            ds_map_clear(cur_lh_map);
+        } else {
+            var n = param_map[? "name"];
+            // destroy one lh
+            // ...
+        }
         break;
     case "xdh":
         ins_msgbox.say_name = "";

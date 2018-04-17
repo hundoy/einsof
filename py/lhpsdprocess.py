@@ -3,14 +3,20 @@
 from PIL import Image
 from psd_tools import PSDImage
 import math
+import os
+import sys
 
 TW = 1280
 TH = 720
+OUTPUT_DIR = "lh_output"
 
 if __name__=='__main__':
     print("start lh psd process")
-    psdFile = "D:/wwd/GameMakerStudio2/asserts/yht_normal.psd"
-    psdFile = "D:/wwd/GameMakerStudio2/asserts/java_normal.psd"
+    #psdFile = "D:/wwd/GameMakerStudio2/asserts/yht_normal.psd"
+    # psdFile = "D:/wwd/GameMakerStudio2/asserts/java_normal.psd"
+    # psdFile = "D:/wwd/GameMakerStudio2/asserts/java_think.psd"
+    psdFile = "D:/wwd/GameMakerStudio2/asserts/red_normal.psd"
+    # psdFile = sys.argv[1]
 
     psd = PSDImage.load(psdFile)
 
@@ -33,6 +39,10 @@ if __name__=='__main__':
             lh_n = arr[1]
             lh_gid = arr[2]
             lh_gname = arr[3]
+
+            # prepare output dir
+            if not os.path.exists(OUTPUT_DIR):
+                os.makedirs(OUTPUT_DIR)
 
             # this is a lh group.
             face_group = None
@@ -72,7 +82,10 @@ if __name__=='__main__':
                     save_img.paste(reg, (actual_ox, actual_oy, actual_ox+actual_w, actual_oy+actual_h))
 
                     carr = n.split("_")
-                    save_img.save("lh_%s_%s_%s_%s.png" % (lh_n, lh_gid, lh_gname, carr[1]))
+                    cur_gname = lh_gname
+                    if len(carr)>=3:
+                        cur_gname = carr[2]
+                    save_img.save("%s/lh_%s_%s_%s_%s.png" % (OUTPUT_DIR, lh_n, lh_gid, cur_gname, carr[1]))
 
             # face process
             for face in face_group.layers:
@@ -94,9 +107,9 @@ if __name__=='__main__':
                     actual_oy = int(math.floor((inner_face_bbox.y1-face_bbox.y1)*1.0*TH/h))
                     save_img.paste(face_img, (actual_ox, actual_oy, actual_ox+actual_w, actual_oy+actual_h))
 
-                    save_img.save("lh_%s_f_%s_%s.png" % (lh_n, lh_gid, n[1:]))
+                    save_img.save("%s/lh_%s_f_%s_%s.png" % (OUTPUT_DIR, lh_n, lh_gid, n[1:]))
 
-            info_file_n = "lh_%s_info_%s" % (lh_n, lh_gid)
+            info_file_n = "%s/lh_%s_info_%s" % (OUTPUT_DIR, lh_n, lh_gid)
 
             cont_x = 0
             if face_bbox.x1>w/2:

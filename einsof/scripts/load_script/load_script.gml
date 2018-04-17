@@ -37,6 +37,7 @@ for (var i=0; i<array_length_1d(arr); i+=1){
                 }
             }
             ds_list_add(script_arr, kvcmd);
+            ds_list_mark_as_map(script_arr, ds_list_size(script_arr)-1);
             break;
         case "ctrlcmd":
             // @if @elsif @else @endif
@@ -49,6 +50,7 @@ for (var i=0; i<array_length_1d(arr); i+=1){
                 ds_map_add(kvcmd, "cond", larr[1]); 
             }
             ds_list_add(script_arr, kvcmd);
+            ds_list_mark_as_map(script_arr, ds_list_size(script_arr)-1);
             break;
         case "comment":
             // do nothing, skip comment.
@@ -59,6 +61,7 @@ for (var i=0; i<array_length_1d(arr); i+=1){
             var tag_name = string_copy(line, 2, string_length(line)-1);
             ds_map_add(kvcmd, "name", tag_name);
             ds_list_add(script_arr, kvcmd);
+            ds_list_mark_as_map(script_arr, ds_list_size(script_arr)-1);
             
             ds_map_add(tag_map, tag_name, ds_list_size(script_arr)-1);
             break;
@@ -68,6 +71,7 @@ for (var i=0; i<array_length_1d(arr); i+=1){
             ds_map_add(kvcmd, "type", "text");
             ds_map_add(kvcmd, "text", line);
             ds_list_add(script_arr, kvcmd);
+            ds_list_mark_as_map(script_arr, ds_list_size(script_arr)-1);
             break;
     }
 }

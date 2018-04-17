@@ -103,10 +103,13 @@ if (is_load_end && (is_press_enter || is_press_skip)){
             ins_player.is_movable = false;
             script_content = interact_ins.script_content;
             var script_load_rs = load_script(script_content);
+            ds_list_destroy(script_list);
+            ds_map_destroy(script_tag_map);
             script_list = script_load_rs[? "script_list"];
             script_tag_map = script_load_rs[? "tag_map"];
             script_i = -1;
             is_process_script = true;
+            ds_map_destroy(script_load_rs);
         }
     }
     
@@ -184,6 +187,7 @@ if (is_load_end && (is_press_enter || is_press_skip)){
                     go_script_i = rs[? "go_script_i"];
                     is_script_end = false;
                 }
+                ds_map_destroy(rs);
             } until(!go_next || is_script_end)
         }
         
@@ -191,8 +195,12 @@ if (is_load_end && (is_press_enter || is_press_skip)){
             ins_player.is_movable = true;
             script_content = "";
             ds_list_clear(script_list);
+            ds_list_clear(cond_has_found_list);
+            ds_list_clear(sel_list);
+            ds_map_clear(script_tag_map);
+            ds_map_clear(cur_lh_map);
             script_i = -100;
-            is_process_script = false;
+            is_process_script = false; 
         }
     }
 }

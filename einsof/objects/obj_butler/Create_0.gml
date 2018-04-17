@@ -29,26 +29,47 @@ skiping_cond_level = 0;
 go_script_i = -100;
 sel_list = ds_list_create();
 
-// bg control
+// bg control, define frame index to a bg name
 bg_name = "";
 is_show_bg = false;
 bg_name_list = ds_list_create();
-ds_list_add(bg_name_list, "7home");
-ds_list_add(bg_name_list, "xiang");
-ds_list_add(bg_name_list, "cafe");
-ds_list_add(bg_name_list, "bath");
-ds_list_add(bg_name_list, "hotel");
-ds_list_add(bg_name_list, "rest");
+var bg_name_arr = ["7home", "xiang", "cafe", "bath", "hotel", "rest"];
+for (var i=0; i<array_length_1d(bg_name_arr); i++){
+    ds_list_add(bg_name_list, bg_name_arr[i]);
+}
 
 // lh control
-lh_data = ds_map_create();
-var spids = [sp_lh_boy, sp_lh_wolf, sp_lh_girl];
-for (var i=0; i<array_length_1d(spids); i++){
-	var spid = spids[i];
+lh_data_map = ds_map_create();
+lh_gname_gid_map = ds_map_create();
+lh_face_rect_map = ds_map_create();
+var sp_lh_arr = [sp_lh_java_g1_normal, sp_lh_java_g1_cap, sp_lh_java_g2_think];
+var sp_lh_face_arr = [sp_lh_java_f_g1, sp_lh_java_f_g2]
+lh_face_rect_map[? "java_f_g1"] = [312,106];
+lh_face_rect_map[? "java_f_g2"] = [264,100];
+
+for (var i=0; i<array_length_1d(sp_lh_arr); i++){
+	var spid = sp_lh_arr[i];
 	var spname = sprite_get_name(spid);
-	ds_map_add(lh_data, string_replace(spname, "sp_lh_", ""), spid);
+	ds_map_add(lh_data_map, string_replace(spname, "sp_lh_", ""), spid);
+    
+    var arr = string_split("_", spname, true);
+    ds_map_add(lh_gname_gid_map, arr[4], arr[3]);
 }
-lh_name = "";
+for (var i=0; i<array_length_1d(sp_lh_face_arr); i++){
+	var spid = sp_lh_face_arr[i];
+	var spname = sprite_get_name(spid);
+    spname = string_replace(spname, "sp_lh_", "");
+	ds_map_add(lh_data_map, spname, spid);
+    var face_rect = lh_face_rect_map[? spname];
+    
+    face_rect[0] = face_rect[0]-global.sw/4;
+    face_rect[1] = face_rect[1];
+    lh_face_rect_map[? spname] = face_rect;
+}
+// a map store current display lh data. key: lh_name  value:list( map{pos,c,g,f} )
+cur_lh_map = ds_map_create();
+
+
 
 // trans control
 trans_sp = noone;
