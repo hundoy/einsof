@@ -79,7 +79,16 @@ if (is_load_end && key_y!=0){
 
 // press space and trigger interact
 var is_press_enter = keyboard_check_pressed(vk_space) || mouse_check_button_pressed(mb_left);
-if (is_load_end && (is_press_enter || is_press_skip)){
+var is_wait_end = false;
+if (is_wait) wait_time_i+=1;
+// wait time end or wait trans end
+if (is_wait && ((wait_time_tar>0 && wait_time_i>=wait_time_tar) || (wait_time_tar==-1 && trans_period==0))){
+    is_wait = false;
+    wait_time_i = -1;
+    wait_time_tar = -1;
+    is_wait_end = true;
+}
+if (is_load_end && (is_press_enter || is_press_skip || is_wait_end)){
     // HANG when in sel
     if (ins_sel.is_sel){
         if (ins_sel.sel_i<0 || !is_press_enter) return;
@@ -111,6 +120,15 @@ if (is_load_end && (is_press_enter || is_press_skip)){
             is_process_script = true;
             ds_map_destroy(script_load_rs);
         }
+    }
+    
+    // click when wait
+    if (is_wait){
+        is_wait = false;
+        wait_time_i = -1;
+        wait_time_tar = -1;
+        trans_i = trans_tar;
+        is_wait_end = true;
     }
     
     // process script

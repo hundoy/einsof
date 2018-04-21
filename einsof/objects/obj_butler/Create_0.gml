@@ -28,6 +28,10 @@ is_cond_skip = false;
 skiping_cond_level = 0;
 go_script_i = -100;
 sel_list = ds_list_create();
+is_wait = false;
+wait_time_tar = -1;
+wait_time_i = -1;
+
 
 // bg control, define frame index to a bg name
 bg_name = "";
@@ -73,10 +77,11 @@ cur_lh_map = ds_map_create();
 
 // trans control
 trans_sp = noone;
-// 0- no trans  1- prepare trans, get the sp. 2- in traning
+// 0- no trans  1- prepare trans, get the sp. 2- in traning 3-wait trans
 trans_period = 0; 
 trans_i = -1;
 trans_tar = -1;
+is_pretrans = false;
 
 // text control
 txt_max_line = 2;

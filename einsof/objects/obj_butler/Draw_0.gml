@@ -1,15 +1,15 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-// trans process
+// trans process(useless)
 if (trans_period==1){
     // prepare
     if (trans_sp!=noone) sprite_delete(trans_sp);
     
     trans_sp = sprite_create_from_surface(surf_adv, 0, 0, global.sw, global.sh, false, false, 0, 0);
     trans_i = 0;
-    if (trans_tar==-1) trans_tar = 60;
-    trans_period=2;
+
+    trans_period = 2;
 }
 
 // paint
@@ -20,6 +20,9 @@ if (true){
     }
     surface_set_target(surf_adv);
     draw_clear_alpha(c_black, 0);
+    
+    // other non-GUI graphics
+    surface_copy(surf_adv, 0, 0, application_surface);
     
     // bg
     var spid = ds_list_find_index(bg_name_list, bg_name);
@@ -34,7 +37,7 @@ if (true){
         for (var i = 0; i < size; i++;){
             var lhdata_list = cur_lh_map[? lh_name];
             var lhdata = lhdata_list[| 0];
-            var pos = lhdata[? "pos"];
+            var pos = lhdata[? "p"];
             switch(pos){
                 case "l":
                     pos = 0.25;

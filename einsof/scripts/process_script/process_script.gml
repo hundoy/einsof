@@ -19,33 +19,37 @@ if(ds_map_exists(param_map, "cond") && type!="if" && type!="elsif"){
 
 switch(type){
     case "lh":
-        if (ds_map_exists(param_map, "t")){
+        var trans_time = ds_map_exists(param_map, "t") ? real(param_map[? "t"]) : 30;
+        if (trans_time>0){
             // actually, this is frame, not time.
-            var trans_time = real(param_map[? "t"]);
             trans_period = 1;
             trans_tar = trans_time;
         }
         
         var n = param_map[? "name"];
-        var pos = param_map[? "p"];
-        var g = param_map[? "g"];
-        var c = param_map[? "c"];
-        var f = param_map[? "f"];
-        var lhdata = ds_map_create();
-        lhdata[? "pos"] = pos;
-        lhdata[? "g"] = g;
-        lhdata[? "c"] = c;
-        lhdata[? "f"] = f;
         
+        // get/init lhdata
         if (!ds_map_exists(cur_lh_map, n)){
             var newlist = ds_list_create();
             ds_map_add_list(cur_lh_map, n, newlist);
         }
-        var lhdata_list = cur_lh_map[? n]
+        var lhdata_list = cur_lh_map[? n];
+        if (ds_list_empty(lhdata_list)){
+            var newlhdata = ds_map_create();
+            lhdata_list[| 0] = newlhdata;
+            ds_list_mark_as_map(lhdata_list, 0);
+        }
+        var lhdata = lhdata_list[| 0];
         
-        lhdata_list[| 0] = lhdata;
-        ds_list_mark_as_map(lhdata_list, 0);
-        ds_map_add_list(cur_lh_map, n, lhdata_list);
+        var pos = get_lhdata_val(param_map, lhdata, "p", "l");
+        var g = get_lhdata_val(param_map, lhdata, "g", "normal");
+        var c = get_lhdata_val(param_map, lhdata, "c", 0);
+        var f = get_lhdata_val(param_map, lhdata, "f", 0);
+        lhdata[? "p"] = pos;
+        lhdata[? "g"] = g;
+        lhdata[? "c"] = c;
+        lhdata[? "f"] = f;
+        
         break;
     case "dh":
         var n = param_map[? "name"];
@@ -68,11 +72,10 @@ switch(type){
         ins_msgbox.is_show = false;
         break;
     case "bg":
-        if (ds_map_exists(param_map, "t")){
-            // actually, this is frame, not time.
-            var trans_time = real(param_map[? "t"]);
-            trans_period = 1;
-            trans_tar = trans_time;
+        var trans_time = ds_map_exists(param_map, "t") ? real(param_map[? "t"]) : 30;
+        if (trans_time>0){
+            prepare_trans();
+            start_trans(trans_time);
         }
     
         if (ds_map_exists(param_map, "name")){
@@ -82,7 +85,30 @@ switch(type){
             bg_name = "";
             is_show_bg = false;
         }
-        break;    
+        break;
+    case "wt":
+        var wt_type = ds_map_exists(param_map, "name") ? param_map[? "name"] : "time";
+        if (wt_type=="time"){
+            var wt_time = ds_map_exists(param_map, "t") ? param_map[? "t"] : 30;
+            wait_time_tar = wt_time;
+            wait_time_i = 0;
+            is_wait = true;
+            go_next = false;
+        }
+        if (wt_type=="trans"){
+            is_wait = true;
+            go_next = false;
+        }
+        break;
+    case "pretrans":
+        // prepare trans
+        prepare_trans();
+        break;
+    case "trans":
+        // start trans
+        var trans_time = is_undefined(param_map[? "t"]) ? 30 : real(param_map[? "t"]);
+        start_trans(trans_time);
+        break;
     case "str":
         var k = ds_map_find_first(param_map);
         if (k=="type") k = ds_map_find_next(param_map, k);
