@@ -16,6 +16,16 @@ var is_load_end = ins_player!=noone && ins_msgbox!=noone && ins_sel!=noone;
 // press skip button
 var is_press_skip = keyboard_check(vk_control);
 
+// process audio
+if (is_load_end && !is_undefined(bgm_cur) && is_bgm_fading_out){
+    var bgm_cur_gain = audio_sound_get_gain(bgm_cur);
+    if (bgm_cur_gain==0){
+        audio_stop_sound(bgm_cur);
+        bgm_cur = undefined;
+        is_bgm_fading_out = false;
+    }
+}
+
 // process text
 if (is_load_end && is_intext){
     // limit process

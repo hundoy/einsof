@@ -47,6 +47,14 @@
             }
         },
         {
+            "Key": "0e2c9c3d-8652-4686-b8ee-7499330746a5",
+            "Value": {
+                "id": "791aaa1d-bba7-4cd5-a59f-062ebb4472c1",
+                "resourcePath": "sounds\\bgm_ametowa\\bgm_ametowa.yy",
+                "resourceType": "GMSound"
+            }
+        },
+        {
             "Key": "0efc8386-a993-49f5-8e36-69f2cd9abd7a",
             "Value": {
                 "id": "aaa33358-10ff-4a5b-800f-d57ecc95283f",
@@ -84,6 +92,14 @@
                 "id": "52d8cd25-2f6d-4d3f-80de-541a30d250e5",
                 "resourcePath": "views\\16aad7e3-916f-45ec-9633-ec218c3dc528.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "19642b60-0aa8-4836-927a-52897ab8dabd",
+            "Value": {
+                "id": "66e4263f-0f8e-47a6-86cf-878a9955da44",
+                "resourcePath": "sounds\\se_cat\\se_cat.yy",
+                "resourceType": "GMSound"
             }
         },
         {
@@ -263,6 +279,14 @@
             }
         },
         {
+            "Key": "6e3f6003-eb3c-4b54-9667-b3784e93f1eb",
+            "Value": {
+                "id": "e9d8c499-1c6e-49d0-b564-cf1cccb6ddba",
+                "resourcePath": "sounds\\se_ding\\se_ding.yy",
+                "resourceType": "GMSound"
+            }
+        },
+        {
             "Key": "72b74f29-aa43-4f96-94a3-152750f70970",
             "Value": {
                 "id": "fb295e19-6fd9-49b3-abdb-bab77c7b8d38",
@@ -300,6 +324,14 @@
                 "id": "1b4abc75-3c80-41f7-b07b-08fc4b85e60d",
                 "resourcePath": "scripts\\string_trim\\string_trim.yy",
                 "resourceType": "GMScript"
+            }
+        },
+        {
+            "Key": "7ab486ab-b738-4eab-97c7-d350c76c68b4",
+            "Value": {
+                "id": "de584cb0-5435-449b-9bf6-52566532f0f9",
+                "resourcePath": "views\\7ab486ab-b738-4eab-97c7-d350c76c68b4.yy",
+                "resourceType": "GMFolder"
             }
         },
         {
@@ -527,11 +559,27 @@
             }
         },
         {
+            "Key": "db2e128b-065e-4033-8196-6fe8ad838ff3",
+            "Value": {
+                "id": "209b3a82-9c26-4bd1-bc5c-dd684c94c8dd",
+                "resourcePath": "sounds\\bgm_piano13\\bgm_piano13.yy",
+                "resourceType": "GMSound"
+            }
+        },
+        {
             "Key": "db9f7bd1-da5a-43ce-982a-3639a0f03e17",
             "Value": {
                 "id": "01e24a9c-852f-4412-b98c-12cda5c747bf",
                 "resourcePath": "views\\db9f7bd1-da5a-43ce-982a-3639a0f03e17.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "dca47253-5e90-4407-93b3-6cded81c60a4",
+            "Value": {
+                "id": "d3e887be-2d3c-49ce-a250-7f2a42dee57d",
+                "resourcePath": "sounds\\bgm_timeside\\bgm_timeside.yy",
+                "resourceType": "GMSound"
             }
         },
         {
@@ -548,6 +596,14 @@
                 "id": "62ae4a63-3b0a-4857-a435-25999b1e147e",
                 "resourcePath": "sprites\\sp_circle2\\sp_circle2.yy",
                 "resourceType": "GMSprite"
+            }
+        },
+        {
+            "Key": "e1844ac0-5874-424e-884c-370af9182691",
+            "Value": {
+                "id": "7896eeee-0fc5-4fdf-9d03-f91a5737c0c2",
+                "resourcePath": "sounds\\se_bychance\\se_bychance.yy",
+                "resourceType": "GMSound"
             }
         },
         {
@@ -611,6 +667,14 @@
             "Value": {
                 "id": "356371c7-626b-4f11-87dd-f83eeec2c163",
                 "resourcePath": "views\\ee5bd2fd-e040-4ed6-bdb1-680e6b1c9048.yy",
+                "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "f04ee24b-8e72-403b-9c60-05e8f2457bb0",
+            "Value": {
+                "id": "9015efe6-da4f-4234-98e2-57ef8e88b95e",
+                "resourcePath": "views\\f04ee24b-8e72-403b-9c60-05e8f2457bb0.yy",
                 "resourceType": "GMFolder"
             }
         },

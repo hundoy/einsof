@@ -32,6 +32,24 @@ is_wait = false;
 wait_time_tar = -1;
 wait_time_i = -1;
 
+// sound control
+// prepare sound data
+bgm_data_map = ds_map_create();
+se_data_map = ds_map_create();
+var bgm_arr = [bgm_ametowa, bgm_piano13, bgm_timeside];
+var se_arr = [se_bychance, se_ding, se_cat];
+for (var i=0; i<array_length_1d(bgm_arr); i++){
+    var bgm_name = audio_get_name(bgm_arr[i]);
+    bgm_name = string_replace(bgm_name, "bgm_", "");
+    bgm_data_map[? bgm_name] = bgm_arr[i];
+}
+for (var i=0; i<array_length_1d(se_arr); i++){
+    var se_name = audio_get_name(se_arr[i]);
+    se_name = string_replace(se_name, "se_", "");
+    se_data_map[? se_name] = se_arr[i];
+}
+bgm_cur = undefined;
+is_bgm_fading_out = false;
 
 // bg control, define frame index to a bg name
 bg_name = "";

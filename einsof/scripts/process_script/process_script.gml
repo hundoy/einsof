@@ -71,6 +71,45 @@ switch(type){
         ins_msgbox.say_text = "";
         ins_msgbox.is_show = false;
         break;
+    case "bgm":
+        var n = param_map[? "name"];
+        var bgm_id = bgm_data_map[? n];
+        if (is_undefined(bgm_id)){
+            show_debug_message("bgm "+n+" doesn't exists!!");
+        } else{
+            if (!is_undefined(bgm_cur)){
+                audio_stop_sound(bgm_cur);
+            }
+            bgm_cur = audio_play_sound(bgm_id, 1, true);
+            
+            var t = param_map[? "t"];
+            if (!is_undefined(t)){
+                audio_sound_gain(bgm_cur, 0, 0);
+                audio_sound_gain(bgm_cur, 1, real(t)*1000);
+            }
+        }
+        break;
+    case "xbgm":
+        if (!is_undefined(bgm_cur)){
+            var t = param_map[? "t"];
+            if (!is_undefined(t)){
+                audio_sound_gain(bgm_cur, 0, real(t)*1000);
+                is_bgm_fading_out = true;
+            } else {
+                audio_stop_sound(bgm_cur);
+                bgm_cur = undefined;
+            }
+        }
+        break;
+    case "se":
+        var n = param_map[? "name"];
+        var se_id = se_data_map[? n];
+        if (is_undefined(se_id)){
+            show_debug_message("se "+n+" doesn't exists!!");
+        } else{
+            audio_play_sound(se_id, 2, false);
+        }
+        break;
     case "bg":
         var trans_time = ds_map_exists(param_map, "t") ? real(param_map[? "t"]) : 30;
         if (trans_time>0){

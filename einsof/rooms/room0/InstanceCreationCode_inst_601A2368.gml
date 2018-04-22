@@ -1,15 +1,22 @@
 script_content=@"
+[bgm ametowa]
 [lh java p=r g=normal c=1 f=0]
 [dh 扎瓦]
 立绘的一个测试。现在是在右边，普通动作，便装，脸1。
+[se cat]
 [lh java f=1]
 变个脸
+[bgm piano13 t=3]
+[se cat]
 [lh java f=2]
 再变个脸
+[se ding]
 [lh java c=0 f=1]
 衣服换成制服，表情也变一下
+[bgm timeside t=5]
 [lh java f=0]
 表情再变一下
+[xbgm t=5]
 [lh java g=think c=0 f=0]
 现在我动作也切换了，其实是一个大切换，必须什么都指定一下。
 [lh java f=1]
@@ -32,5 +39,6 @@ script_content=@"
 慢慢切换立绘，但这回不等了
 [xlh]
 [xdh]
+[xbgm]
 [bg]
 ";
